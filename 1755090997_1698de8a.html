@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-green: #28a745;
+            --light-green: #e9f7ee;
+            --dark-text: #333;
+            --light-text: #666;
+            --border-color: #eee;
+            --background-color: #f8f9fa;
+            --card-background: #fff;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--dark-text);
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header .icon-success {
+            color: var(--primary-green);
+            font-size: 70px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            color: var(--dark-text);
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: var(--light-text);
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .receipt-details {
+            background-color: var(--light-green);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-item .label {
+            color: var(--light-text);
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .detail-item .value {
+            color: var(--dark-text);
+            font-weight: 600;
+            text-align: right;
+            flex: 1;
+        }
+
+        .total-amount {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .total-amount .label,
+        .total-amount .value {
+            color: var(--primary-green);
+        }
+
+        .button-view-history {
+            background-color: var(--primary-green);
+            color: #fff;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .button-view-history:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .button-view-history:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                padding: 25px;
+                border-radius: 10px;
+            }
+            .header .icon-success {
+                font-size: 60px;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .header p {
+                font-size: 1em;
+            }
+            .receipt-details {
+                padding: 20px;
+            }
+            .detail-item .label, .detail-item .value {
+                font-size: 0.95em;
+            }
+            .total-amount {
+                font-size: 1.2em;
+            }
+            .button-view-history {
+                font-size: 1em;
+                padding: 13px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <i class="fas fa-check-circle icon-success"></i>
+            <h1>Payment Successful!</h1>
+            <p>Your payment has been processed successfully. A digital receipt is provided below.</p>
+        </div>
+
+        <div class="receipt-details">
+            <div class="detail-item">
+                <span class="label">Transaction ID:</span>
+                <span class="value">#ABC-123456789</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Date:</span>
+                <span class="value">October 26, 2023</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Time:</span>
+                <span class="value">10:30 AM</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Payment Method:</span>
+                <span class="value">Visa **** 1234</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Recipient:</span>
+                <span class="value">Online Store Inc.</span>
+            </div>
+            <div class="total-amount">
+                <span class="label">Amount Paid:</span>
+                <span class="value">$75.00</span>
+            </div>
+        </div>
+
+        <a href="#" class="button-view-history">View Transaction History</a>
+    </div>
+</body>
+</html>
