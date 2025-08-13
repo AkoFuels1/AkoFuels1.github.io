@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authentication Modal</title>
+  <style>
+    /* Global Reset and Base Styles */
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f2f5; /* Background for visual context, modal overlay covers this */
+      overflow: hidden; /* Prevent scrollbar when modal is active */
+    }
+
+    /* Custom Properties for Consistency */
+    :root {
+      --primary-color: #007aff; /* iOS blue */
+      --text-color-primary: #333;
+      --text-color-secondary: #666;
+      --background-color-modal: #fff;
+      --overlay-background: rgba(0, 0, 0, 0.4);
+      --border-color: #ddd;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --border-radius: 12px;
+      --spacing-unit: 16px;
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--overlay-background);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      animation: fadeIn 0.3s forwards;
+    }
+
+    /* Authentication Modal Container */
+    .authentication-modal {
+      background-color: var(--background-color-modal);
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 30px var(--shadow-color);
+      max-width: 360px;
+      width: 90%; /* Responsive width */
+      padding: calc(var(--spacing-unit) * 1.5); /* 24px */
+      text-align: center;
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      animation: slideIn 0.3s forwards cubic-bezier(0.2, 0.8, 0.2, 1.0);
+      animation-delay: 0.1s; /* Slight delay after overlay appears */
+    }
+
+    /* Modal Header */
+    .modal-header {
+      margin-bottom: var(--spacing-unit);
+    }
+
+    .modal-title {
+      font-size: 22px;
+      color: var(--text-color-primary);
+      margin: 0;
+      font-weight: 600;
+    }
+
+    /* Modal Body */
+    .modal-body {
+      margin-bottom: calc(var(--spacing-unit) * 1.5);
+    }
+
+    /* Biometric Section (Default View) */
+    .biometric-section {
+      display: block; /* Shown by default */
+    }
+
+    /* PIN Section (Hidden by Default) */
+    .pin-section {
+      display: none; /* JavaScript would toggle this to 'block' */
+    }
+
+    .biometric-icon {
+      width: 80px;
+      height: 80px;
+      color: var(--primary-color);
+      margin-bottom: var(--spacing-unit);
+    }
+
+    .modal-message,
+    .pin-message {
+      font-size: 18px;
+      color: var(--text-color-primary);
+      margin-top: 0;
+      margin-bottom: calc(var(--spacing-unit) * 0.5); /* 8px */
+      line-height: 1.4;
+    }
+
+    .modal-alternative {
+      font-size: 15px;
+      color: var(--text-color-secondary);
+      margin-top: var(--spacing-unit);
+      margin-bottom: 0;
+    }
+
+    .pin-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .pin-link:hover {
+      text-decoration: underline;
+    }
+
+    /* PIN Input Styling */
+    .pin-input-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: var(--spacing-unit);
+    }
+
+    .pin-digit {
+      width: 48px;
+      height: 48px;
+      font-size: 24px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      outline: none;
+      appearance: none; /* Remove default input styling */
+      -moz-appearance: textfield; /* Firefox specific */
+      color: var(--text-color-primary);
+      font-weight: 500;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pin-digit:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+    }
+
+    /* Hide spin buttons for number/password input */
+    input[type="password"]::-webkit-outer-spin-button,
+    input[type="password"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Modal Footer */
+    .modal-footer {
+      margin-top: var(--spacing-unit);
+    }
+
+    .cancel-button {
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      font-size: 17px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+      -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+    }
+
+    .cancel-button:hover {
+      background-color: rgba(0, 122, 255, 0.05);
+    }
+
+    /* Animation Keyframes */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px) scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="modal-overlay">
+    <div class="authentication-modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Authenticate to Approve Payment</h2>
+      </div>
+      <div class="modal-body">
+        <div class="biometric-section">
+          <!-- Generic Face ID / Biometric Icon (Material Design 'Face' equivalent) -->
+          <svg class="biometric-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93h14c0 4.08-3.05 7.44-7 7.93zM8.5 9.5c.83 0 1.5-.67 1.5-1.5S9.33 6.5 8.5 6.5 7 7.17 7 8s.67 1.5 1.5 1.5zm7 0c.83 0 1.5-.67 1.5-1.5S16.33 6.5 15.5 6.5 14 7.17 14 8s.67 1.5 1.5 1.5z"/>
+          </svg>
+          <p class="modal-message">Use Face ID to confirm your identity.</p>
+          <p class="modal-alternative">Or <a href="#" class="pin-link">enter your PIN</a></p>
+        </div>
+
+        <div class="pin-section">
+          <p class="pin-message">Enter your PIN:</p>
+          <div class="pin-input-container">
+            <input type="password" maxlength="1" class="pin-digit" pattern="[0-9]" inputmode="numeric" autocomplete="off" />
+            <input type="password" maxlength="1" class="pin-digit" pattern="[0-9]" inputmode="numeric" autocomplete="off" />
+            <input type="password" maxlength="1" class="pin-digit" pattern="[0-9]" inputmode="numeric" autocomplete="off" />
+            <input type="password" maxlength="1" class="pin-digit" pattern="[0-9]" inputmode="numeric" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="cancel-button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Basic JavaScript for toggling between biometric and PIN, and PIN input focus
+    document.addEventListener('DOMContentLoaded', () => {
+      const pinLink = document.querySelector('.pin-link');
+      const biometricSection = document.querySelector('.biometric-section');
+      const pinSection = document.querySelector('.pin-section');
+      const pinDigits = document.querySelectorAll('.pin-digit');
+      const cancelButton = document.querySelector('.cancel-button');
+      const modalOverlay = document.querySelector('.modal-overlay');
+
+      // Function to close modal (for demonstration)
+      const closeAuthModal = () => {
+        modalOverlay.style.animation = 'fadeOut 0.3s forwards';
+        document.querySelector('.authentication-modal').style.animation = 'slideOut 0.3s forwards cubic-bezier(0.2, 0.8, 0.2, 1.0)';
+        setTimeout(() => {
+          // In a real app, you might remove the modal from DOM or hide it fully
+          modalOverlay.style.display = 'none';
+          // Reset to biometric view for next open
+          biometricSection.style.display = 'block';
+          pinSection.style.display = 'none';
+          pinDigits.forEach(input => input.value = ''); // Clear PIN inputs
+        }, 300);
+      };
+
+      // Event listener for
