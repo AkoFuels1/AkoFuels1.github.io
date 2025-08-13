@@ -1,0 +1,129 @@
+<div class="payment-success-container">
+    <div class="success-icon-wrapper">
+        <svg class="success-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 6L9 17L4 12" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    <h1 class="payment-success-title">Payment Sent!</h1>
+    <p class="payment-success-message">Your payment has been successfully processed.</p>
+    <div class="payment-success-actions">
+        <button class="btn btn-primary">View Receipt</button>
+        <button class="btn btn-secondary">Return to Home</button>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #f0f2f5;
+        color: #333;
+    }
+
+    .payment-success-container {
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .success-icon-wrapper {
+        width: 80px;
+        height: 80px;
+        background-color: #28a745;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 25px auto;
+        box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+    }
+
+    .success-icon {
+        width: 48px;
+        height: 48px;
+        color: #fff;
+    }
+
+    .payment-success-title {
+        font-size: 2.2em;
+        color: #28a745;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .payment-success-message {
+        font-size: 1.1em;
+        color: #555;
+        margin-bottom: 30px;
+        line-height: 1.5;
+    }
+
+    .payment-success-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn {
+        padding: 14px 25px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        font-weight: 600;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #ffffff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background-color: #e0e0e0;
+        color: #333;
+    }
+
+    .btn-secondary:hover {
+        background-color: #c0c0c0;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+        .payment-success-container {
+            margin: 20px;
+            padding: 30px;
+        }
+
+        .payment-success-title {
+            font-size: 1.8em;
+        }
+
+        .payment-success-message {
+            font-size: 1em;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 1em;
+        }
+    }
+</style>
