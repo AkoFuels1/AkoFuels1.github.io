@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5; /* Light gray background */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .payment-success-screen {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+            padding: 40px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            box-sizing: border-box;
+            transform: translateY(0);
+            transition: transform 0.4s ease-out, box-shadow 0.3s ease;
+        }
+
+        .payment-success-screen:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .success-header {
+            margin-bottom: 30px;
+        }
+
+        .success-icon {
+            font-size: 70px;
+            color: #28a745; /* Green color for success */
+            margin-bottom: 15px;
+            display: block;
+            line-height: 1;
+            font-weight: bold;
+            animation: bounceIn 0.8s ease-out forwards;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .payment-success-screen h1 {
+            font-size: 2.2em;
+            color: #333;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .message {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .details-card {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 35px;
+            text-align: left;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .details-card p {
+            margin: 8px 0;
+            font-size: 1em;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .details-card p strong {
+            color: #333;
+            flex-shrink: 0;
+            margin-right: 10px;
+        }
+
+        .details-card span {
+            font-weight: 500;
+            color: #333;
+            text-align: right;
+            flex-grow: 1;
+            word-break: break-all; /* For long transaction IDs */
+        }
+
+        .done-button {
+            background-color: #007bff; /* Primary blue button */
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.25);
+        }
+
+        .done-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.35);
+        }
+
+        .done-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+        }
+
+        .back-home-link {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .back-home-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .payment-success-screen {
+                padding: 30px 20px;
+                border-radius: 8px;
+            }
+
+            .success-icon {
+                font-size: 60px;
+            }
+
+            .payment-success-screen h1 {
+                font-size: 1.8em;
+            }
+
+            .message {
+                font-size: 1em;
+            }
+
+            .details-card {
+                padding: 15px;
+            }
+
+            .details-card p {
+                flex-direction: column;
+                align-items: flex-start;
+                margin: 10px 0;
+            }
+
+            .details-card p strong {
+                margin-bottom: 5px;
+            }
+
+            .details-card span {
+                text-align: left;
+            }
+
+            .done-button {
+                padding: 12px 25px;
+                font-size: 1em;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-success-screen">
+        <div class="success-header">
+            <div class="success-icon">&#10004;</div>
+            <h1>Payment Successful!</h1>
+        </div>
+        <p class="message">Your transaction has been processed and completed successfully. Thank you for your purchase!</p>
+        <div class="details-card">
+            <p><strong>Transaction ID:</strong> <span id="transactionId">TRXN-7890123456789</span></p>
+            <p><strong>Amount Paid:</strong> <span id="amountPaid">$123.45</span></p>
+            <p><strong>Date:</strong> <span id="transactionDate">October 26, 2023, 10:30 AM</span></p>
+        </div>
+        <button class="done-button">Done</button>
+        <a href="#appHomeScreen" class="back-home-link">Back to Home</a>
+    </div>
+</body>
+</html>
